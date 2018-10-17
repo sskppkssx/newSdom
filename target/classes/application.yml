@@ -1,0 +1,56 @@
+server: 
+    port: 18080
+    servlet: 
+        context-path: /newSdom
+    
+spring: 
+    application: 
+        name: newSdom
+    datasource: 
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/dgsdom?characterEncoding=utf8
+        username: root
+        password: root
+        # 初始化大小，最小，最大
+        initialSize: 5 
+        minIdle: 5 
+        maxActive: 20 
+        # 配置获取连接等待超时的时间
+        maxWait: 72000 
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        timeBetweenEvictionRunsMillis: 60000    
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        minEvictableIdleTimeMillis: 300000    
+        # 测试连接是否有效的sql
+        validationQuery: SELECT version()
+        # 建议配置为true，不影响性能，并且保证安全性
+        # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+        testWhileIdle: true
+        # 申请连接时执行validationQuery检测连接是否有效
+        testOnBorrow: false
+        # 归还连接时执行validationQuery检测连接是否有效
+        testOnReturn: false
+        # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        # 属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：
+        # 监控统计用的filter:stat
+        # 日志用的filter:log4j
+        # 防御sql注入的filter:wall
+        filters: stat,log4j,wall
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        
+# 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+#mybatis: 
+#    mapper-locations: classpath:mapping/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+#        type-aliases-package: com.csits.sjmxglpt  # 注意：对应实体类的路径
+
+#pagehelper分页插件
+#pagehelper:
+#    helperDialect: mysql
+#    reasonable: true
+#    supportMethodsArguments: true
+#    params: count=countSql
+     
+        
+        
